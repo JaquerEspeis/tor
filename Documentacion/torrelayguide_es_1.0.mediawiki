@@ -58,7 +58,7 @@ Los puentes son nodos Tor relativamente sencillos, de bajo riesgo y baja utiliza
 === Requerimientos para Relay ===
 Los requerimientos para los relays de Tor dependen del tipo de relay y el ancho de banda que proporcionen.
  
-==== Ancho de banca y conexiones
+==== Ancho de banca y conexiones ====
 * Un relay sin salida debe poder manejar al menos 7000 conexiones concurrentes. Esto puede ser demasiado para enrutadores de nivel de consumidor (caseros).  Todo va a estar bien si usted ejecuta un relay de Tor desde un servidor (virtual o dedicado) en un centro de datos. Si usted corre un relay detrás de un enrutador de nivel de usuario desde su casa usted va a tener que intentar y verificar si su enrutador casero puede manejar esa carga o si va a fallar. Los relays de salida rápidos (>=100 MBit/s) usualmente necesitan manejar mucha mayor cantidad de conexiones concurrentes (>100k).
 
 * Se recomienda que un relay tenga al menos 16 MBit/s (Mbps) de ancho de banda de subida y 16 MBit/s (Mbps) de ancho de banda de bajada disponible para Tor. Entre más ancho de banda, mejor.  Los requerimientos mínimos para un relay son 10 MBit/s (Mbps). Si usted tene menos de 10 MBit/s (Mbps) pero tiene al menos 1 MBit/s le recomendamos que ejecute un [https://trac.torproject.org/projects/tor/wiki/doc/PluggableTransports/obfs4proxy puente con soporte obfs4]. Si usted no conoce su ancho de banda puede utilizar http://beta.speedtest.net para medirlo.
@@ -494,13 +494,13 @@ ExitRelay 1
 }}}
 
 
-=== Ciclo de vida del relay de Tor
+=== Ciclo de vida del relay de Tor ===
 
 Lleva cierto tiempo para que el tráfico del relay aumente, esto es especialmente cierto para los relays guard, pero en menor medida también para los relays de salida. Para conocer este proceso, lea sobre el ciclo de vida de un nuevo relay: https://blog.torproject.org/lifecycle-new-relay.
 
 === Manteniendo un relay ===
 
-=== Respaldar las llaves de identidad de Tor
+=== Respaldar las llaves de identidad de Tor ===
 Después de la instalación inicial y el inicio del demonio tor, es buena idea hacer una copia de las claves de identidad a largo plazo ( long-term key) de su relay. Se encuentran en la subcarpeta "keys" de DataDirectory (simplemente haga una copia de la carpeta completa y guárdela en una ubicación segura).
 Como los realys tienen un tiempo de expanción (ramp-up time), tiene sentido hacer una copia de seguridad de la clave de identidad para poder restablecer la reputación de su relay después de una falla en el disco - o en otro caso, tendría que pasar por la fase de expanción nuevamente.
 
