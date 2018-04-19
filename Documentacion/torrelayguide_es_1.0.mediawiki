@@ -34,32 +34,32 @@ Todos los nodos son importantes, pero tienen diferentes requerimientos técnicos
 
 Un guardián es el primer relay en la cadena de 3 relays construyendo un circuito Tor. Un relay medio no es un guardián ni una salida, pero actúan como un segundo hop entre los dos. Para convertirse en un guardián, un relay tiene que ser estable y rápido (al menos 2MByte/s) de lo contrario va a permanecer como un relay medio.
 
-Los relays guardianes y medios usualmente no reciben quejas o reportes de abuso. Todos los relays van a estar listados en las listas públicas de relays de Tor, por lo que pueden ser bloqueados por ciertos servicios que no entienden cómo funcionan las redes Tor o por quienes de manera deliberada quieren censurar a los usuarios Tor. Si usted está ejecutando un relay desde su casa y tiene una IP estática, podría considerar ejecutar un puente para que el tráfico ajeno a Tor no sea bloqueado al ser detectado que viene de Tor. Si usted tiene una dirección IP dinámica o varias direcciones IP estáticas, entonces no tendrá mayores inconvenientes.
+Los relays guardianes y medios usualmente no reciben quejas o reportes de abuso. Todos los relays van a estar listados en las listas públicas de relays de Tor, por lo que pueden ser bloqueados por ciertos servicios que no entienden cómo funcionan las redes Tor o por quienes de manera deliberada quieren censurar a las personas usuarias de Tor. Si usted está ejecutando un relay desde su casa y tiene una IP estática, podría considerar ejecutar un puente para que el tráfico ajeno a Tor no sea bloqueado al ser detectado que viene de Tor. Si usted tiene una dirección IP dinámica o varias direcciones IP estáticas, entonces no tendrá mayores inconvenientes.
 
-Un Tor relay "sin salida" requiere esfuerzos mínimos de mantenimiento y el uso de ancho de banda puede ser altamente personalizable en la configuración tor (esto será cubierto con mayor detalle más adelante en esta guía). La llamada "política de salida" de un relay, decide si el relay va a permitir si los clientes salgan o no. Un relay sin salida no permite una salida en su política de salida.
+Un Tor relay "sin salida" requiere esfuerzos mínimos de mantenimiento y el uso de ancho de banda puede ser altamente personalizable en la configuración tor (esto será cubierto con mayor detalle más adelante en esta guía). La llamada "política de salida" de un relay, decide si el relay va a permitir si las clientes salgan o no. Un relay sin salida no permite una salida en su política de salida.
 
 ==== Relay de salida ====
 
-El relay de salida es el relay final en un circuito Tor, es el que envía el tráfico a su destino. Los servicios a los que los clientes Tor se están conectando (sitio web, servicio de chat, proveedor de correos, etc) van a ver la dirección IP del relay de salida en lugar de la dirección IP real del usuario Tor.
+El relay de salida es el relay final en un circuito Tor, es el que envía el tráfico a su destino. Los servicios a los que las clientes Tor se están conectando (sitio web, servicio de chat, proveedor de correos, etc) van a ver la dirección IP del relay de salida en lugar de la dirección IP real del usuario Tor.
 
-Los relays de salida tienen la mayor exposición legal y responsabilidad de todos los relays. Por ejemplo, si un usuario descarga material protegido por "copyright" mientras utiliza un relay de salida, usted como operador podría recibir una [https://www.dmca.com/Solutions/view.aspx?ID=712f28a5-93f2-467b-ba92-3d58c8345a32&?ref=sol08a2 notificación DMCA]. Cualquier queja o reporte de abusos sobre el relay de salida van a llegarle directamente a usted (por medio de su proveedor, dependiendo de los registros de WHOIS). Generalmente, la mayoría de las quejas pueden ser manejadas de manera bastante simple por medio de plantillas de correos, que discutiremos más adelante en la sección de consideraciones legales.
+Los relays de salida tienen la mayor exposición legal y responsabilidad de todos los relays. Por ejemplo, si una persona usuaria descarga material protegido por "copyright" mientras utiliza un relay de salida, usted como operadora podría recibir una [https://www.dmca.com/Solutions/view.aspx?ID=712f28a5-93f2-467b-ba92-3d58c8345a32&?ref=sol08a2 notificación DMCA]. Cualquier queja o reporte de abusos sobre el relay de salida van a llegarle directamente a usted (por medio de su proveedor, dependiendo de los registros de WHOIS). Generalmente, la mayoría de las quejas pueden ser manejadas de manera bastante simple por medio de plantillas de correos, que discutiremos más adelante en la sección de consideraciones legales.
 
-Debido a la exposición legal que viene con la ejecución de un relay de salida, **usted no debe ejecutar un Tor relay de salida desde su casa**.  Los operadores ideales para relays de salida se encuentran afiliados a alguna institución, como una universidad, una biblioteca, un jaquerespeis o una organización relacionada con privacidad. Una institución no solo puede proporcionar un mejor ancho de banda para el relay de salida, sino que estaría mejor posicionada para manejar las quejas de abuso o cualquier eventual investigación judicial.
+Debido a la exposición legal que viene con la ejecución de un relay de salida, **usted no debe ejecutar un Tor relay de salida desde su casa**.  Las operadoras ideales para relays de salida se encuentran afiliadas a alguna institución, como una universidad, una biblioteca, un jaquerespeis o una organización relacionada con privacidad. Una institución no solo puede proporcionar un mejor ancho de banda para el relay de salida, sino que estaría mejor posicionada para manejar las quejas de abuso o cualquier eventual investigación judicial.
 
-Si usted está considerando ejecutar un relay de salida, por favor lea [[LaguiadeTorRelay#Consideracioneslegalesparaoperadoresderelaysdesalida|la sección de consideraciones legales]] para operadores de relays de salida.
+Si usted está considerando ejecutar un relay de salida, por favor lea [[LaguiadeTorRelay#Consideracioneslegalesparaoperadoresderelaysdesalida|la sección de consideraciones legales]] para operadoras de relays de salida.
 
 ==== Puente ====
 El diseño de la red Tor establece que las direcciones IP de los relays de Tor sean públicas. Sin embargo, una de las maneras en las que Tor puede ser bloqueado por gobiernos o proveedores de servicio (ISP) es metiendo en listas negras las direcciones IP de estos nodos Tor públicos. Los puentes Tor son nodos en la red que no están listados en el directorio público de Tor, lo que hace más difícil que los gobiernos e ISPs los puedan bloquear.
 
-Los puentes son muy útiles para usuarios Tor bajo regímenes opresivos o para personas que quieren una capa extra de seguridad porque les preocupa que alguien reconozca que se están conectando a una IP perteneciente a una red Tor pública. Varios países, incluyendo China e Irán, han encontrado maneras de detectar y bloquear puentes Tor. Esta situación puede ser mitigada utilizando "Pluggable transports" (https://www.torproject.org/docs/pluggable-transports.html.en), un tipo especial de puente, que agrega una capa adicional de ofuscación.
+Los puentes son muy útiles para usuarias Tor bajo regímenes opresivos o para personas que quieren una capa extra de seguridad porque les preocupa que alguien reconozca que se están conectando a una IP perteneciente a una red Tor pública. Varios países, incluyendo China e Irán, han encontrado maneras de detectar y bloquear puentes Tor. Esta situación puede ser mitigada utilizando "Pluggable transports" (https://www.torproject.org/docs/pluggable-transports.html.en), un tipo especial de puente, que agrega una capa adicional de ofuscación.
 
-Los puentes son nodos Tor relativamente sencillos, de bajo riesgo y baja utilización de ancho de banda, pero tienen un alto impacto en los usuarios. Es poco probable que un puente reciba quejas de abuso, y como no están listados en los registros públicos, es bastante poco probable que sean bloqueados por los servicios populares. Los puentes son una gran opción si usted solo puede correr un nodo Tor desde la red de su casa, tiene solo una dirección IP estática y no tiene gran cantidad de ancho de banda para donar -- recomendamos que le provea a su puente al menos 1Mbit/sec.
+Los puentes son nodos Tor relativamente sencillos, de bajo riesgo y baja utilización de ancho de banda, pero tienen un alto impacto en las usuarias. Es poco probable que un puente reciba quejas de abuso, y como no están listados en los registros públicos, es bastante poco probable que sean bloqueados por los servicios populares. Los puentes son una gran opción si usted solo puede correr un nodo Tor desde la red de su casa, tiene solo una dirección IP estática y no tiene gran cantidad de ancho de banda para donar -- recomendamos que le provea a su puente al menos 1Mbit/sec.
 
 === Requerimientos para Relay ===
 Los requerimientos para los relays de Tor dependen del tipo de relay y el ancho de banda que proporcionen.
  
 ==== Ancho de banca y conexiones ====
-* Un relay sin salida debe poder manejar al menos 7000 conexiones concurrentes. Esto puede ser demasiado para enrutadores de nivel de consumidor (caseros).  No habrán problemas si usted ejecuta un relay de Tor desde un servidor (virtual o dedicado) en un centro de datos. Si usted corre un relay detrás de un enrutador de nivel de usuario desde su casa va a tener que intentar y verificar si su enrutador casero puede manejar esa carga o si va a fallar. Los relays de salida rápidos (>=100 MBit/s) usualmente necesitan manejar mucha mayor cantidad de conexiones concurrentes (>100k).
+* Un relay sin salida debe poder manejar al menos 7000 conexiones concurrentes. Esto puede ser demasiado para enrutadores de nivel de consumidor (caseros).  No habrán problemas si usted ejecuta un relay de Tor desde un servidor (virtual o dedicado) en un centro de datos. Si corre un relay detrás de un enrutador de nivel de usuario desde su casa va a tener que intentar y verificar si su enrutador casero puede manejar esa carga o si va a fallar. Los relays de salida rápidos (>=100 MBit/s) usualmente necesitan manejar mucha mayor cantidad de conexiones concurrentes (>100k).
 
 * Se recomienda que un relay tenga al menos 16 MBit/s (Mbps) de ancho de banda de subida y 16 MBit/s (Mbps) de ancho de banda de bajada disponible para Tor. Entre más ancho de banda, mejor.  Los requerimientos mínimos para un relay son 10 MBit/s (Mbps). Si usted tene menos de 10 MBit/s (Mbps) pero tiene al menos 1 MBit/s le recomendamos que ejecute un [https://trac.torproject.org/projects/tor/wiki/doc/PluggableTransports/obfs4proxy puente con soporte obfs4]. Si usted no conoce su ancho de banda puede utilizar http://beta.speedtest.net para medirlo.
 
@@ -105,32 +105,32 @@ Si tiene acceso a Internet con una conexión de alta velocidad (>=100MBit/s en a
 
 Si no tiene su propio equipo físico, puede correr un relay en un servidor dedicado rentado o en un servidor virtual físico (VPS). Esto puede costarle un aproximado de entre $3.00/mes y hasta varios miles de dólares al mes, dependiendo de su proveedor, la configuración del hardware y la utilización de ancho de banda. Debe seguir los términos de servicio de su proveedor VPS o se arriesgará a que le deshabiliten la cuenta. Para más información sobre proveedores de servicio hosting y sus políticas sobre permitir relays de Tor, por favor vea la lista mantenida por la comunidad Tor: https://trac.torproject.org/projects/tor/wiki/doc/GoodBadISPs
 
-=== Consideraciones a tomar en cuenta para escoger un proveedor de hosting ===
+=== Consideraciones a tomar en cuenta para escoger una proveedora de hosting ===
 * ¿Cuánta cantidad de tráfico mensual se incluye? ( ¿se mide la cantidad de ancho de banda? )
-* ¿Ofrece el proveedor de hosting conectividad IPv6? (esto es algo recomendado pero no es requerido)
-* ¿Qué tipo de virtualización / hipervisor (si alguno) utiliza el proveedor?
-* ¿El proveedor de hosting empieza a acelerar el ancho de banda después de cierta cantidad de tráfico?
-* ¿Qué tan bien conectado se encuentra el sistema autónomo del proveedor de hosting? Para responder esta pregunta puede utilizar el "rank AS" de los sistemas autónomos, si quiere comparar: http://as-rank.caida.org/  (un valor menor es mejor)
+* ¿Ofrece la proveedora de hosting conectividad IPv6? (esto es algo recomendado pero no es requerido)
+* ¿Qué tipo de virtualización / hipervisor (si alguno) utiliza la proveedora?
+* ¿La proveedora de hosting empieza a acelerar el ancho de banda después de cierta cantidad de tráfico?
+* ¿Qué tan bien conectado se encuentra el sistema autónomo de la proveedora de hosting? Para responder esta pregunta puede utilizar el "rank AS" de los sistemas autónomos, si quiere comparar: http://as-rank.caida.org/  (un valor menor es mejor)
 
 
 ==== Si planea ejecutar relays de salida: ====
 
-* ¿Permite el proveedor de hosting la ejecución de relays de salida de Tor? (pregúnteles de manera directa antes de instalar un relay de salida allí)
-* ¿Permite el proveedor de hosting registros customizados de WHOIS para sus direcciones IP? Esto ayuda a reducir la cantidad de abusos enviados al proveedor de hosting en lugar de a usted
-* ¿El proveedor de hosting permite que usted configure entradas customizadas de DNS reverso? (registros DNS PTR). Esta es una de las cosas probables que necesitará pedir al proveedor de hosting en el tiquete de pre-venta.
+* ¿Permite la proveedora de hosting la ejecución de relays de salida de Tor? (pregúnteles de manera directa antes de instalar un relay de salida allí)
+* ¿Permite la proveedora de hosting registros customizados de WHOIS para sus direcciones IP? Esto ayuda a reducir la cantidad de abusos enviados a la proveedora de hosting en lugar de a usted
+* ¿La proveedora de hosting permite que usted configure entradas customizadas de DNS reverso? (registros DNS PTR). Esta es una de las cosas probables que necesitará pedir a la proveedora de hosting en el tiquete de pre-venta.
 
 ====  SA/diversidad de ubicación ====
 
-Cuando elija a su proveedor de hosting, considere la diversidad de la red a nivel de sistemas autónomos (SA) y de país. Una red más diversa es más resistente a ataques y a fallos. Algunas veces no tenemos claro cuál SA estamos comprando en caso de los revendedores de servicio. Para asegurarse, es mejor preguntar el proveedor de hosting sobre el número de SA antes de ordenar un servidor.
+Cuando elija a su proveedora de hosting, considere la diversidad de la red a nivel de sistemas autónomos (SA) y de país. Una red más diversa es más resistente a ataques y a fallos. Algunas veces no tenemos claro cuál SA estamos comprando en caso de las revendedoras de servicio. Para asegurarse, es mejor preguntar a la proveedora de hosting sobre el número de SA antes de ordenar un servidor.
 
-Es mejor evitar proveedores de hosting donde ya hayan muchos relays de Tor alojados, pero es mejor agregar uno más que no correr un relay del todo. Trate evitar los siguientes proveedores de hosting:
+Es mejor evitar proveedoras de hosting donde ya hayan muchos relays de Tor alojados, pero es mejor agregar uno más que no correr un relay del todo. Trate evitar los siguientes proveedoras de hosting:
 
 * OVH SAS (AS16276) 
 * Online S.a.s. (AS12876)
 * Hetzner Online GmbH (AS24940)
 * DigitalOcean, LLC (AS14061)
 
-Para averiguar cuál proveedor de hosting y cuáles países ya están siendo utilizados por muchos operadores (o sea, que deben ser evitados) puede utilizar el sistema de búsqueda de relays:
+Para averiguar cuál proveedora de hosting y cuáles países ya están siendo utilizados por muchas operadoras (o sea, que deben ser evitadas) puede utilizar el sistema de búsqueda de relays:
 
 * Descripción general del nivel de sistemas autónomos (SA)
  * https://metrics.torproject.org/rs.html#aggregate/as
@@ -400,7 +400,7 @@ https://www.torproject.org/docs/faq.html.en#BandwidthShaping
 
 === IPv6 ===
 
-Nosotros incentivamos a todas las personas a habilitar IPv6 en sus relays. Esto es especialmente valioso en los relays guardián y de salida.
+Incentivamos a todas las personas a habilitar IPv6 en sus relays. Esto es especialmente valioso en los relays guardián y de salida.
 
 Antes de habilitar su demonio de tor para usar IPv6 además de IPv4, asegúrese de que la conectividad IPv6 funcione desde y hacia su servidor. 
 
@@ -433,7 +433,7 @@ Puede encontrar información adicional relacionada con IPv6 en [https://trac.tor
 
 === Importante si usted ejecuta más de una instancia Tor ===
 
-Para evitar poner en riesgo a los clientes de Tor al operar múltiples relays **debe** establecer un valor apropiado a [https://www.torproject.org/docs/tor-manual.html.en#MyFamily MyFamily] y tener una **[https://www.torproject.org/docs/tor-manual.html.en#ContactInfo InformaciónDeContacto]**  en su archivo de configuración torrc.  La configuración `MyFamily` es simplemente decirle a las y los clientes de Tor qué relays Tor están controlados por una sola entidad/operador/organización, por lo tanto estos no los usan en múltiples posiciones en un solo circuito.
+Para evitar poner en riesgo a las clientes de Tor al operar múltiples relays, **debe** establecer un valor apropiado a [https://www.torproject.org/docs/tor-manual.html.en#MyFamily MyFamily] y tener una **[https://www.torproject.org/docs/tor-manual.html.en#ContactInfo InformaciónDeContacto]**  en su archivo de configuración torrc.  La configuración `MyFamily` es simplemente decirle a las y los clientes de Tor qué relays Tor están controlados por una sola entidad/operadora/organización, por lo tanto estos no los usan en múltiples posiciones en un solo circuito.
 
 Si ejecuta dos relays y tienen los fingerprints AAAAAAAAAA y BBBBBBBB, debe agregar la siguiente configuración para establecer MyFamily:
 {{{
@@ -453,7 +453,7 @@ Se recomienda que instale el relay de salida en servidores dedicados a ese prop�
 Antes de modificar su relay para que se convierta en un relay de salida, asegúrese de configurar un registro de DNS reverso (PTR) para que todo mundo sepa que su relay es ahora un relay de salida de tor.
 Algo como "tor-salida" en su nombre es un buen comienzo.
 
-Si su proveedor lo ofrece, asegúrese de que su registro WHOIS contenga indicaciones claras de que es utilizado para un relay de salida de Tor
+Si su proveedora lo ofrece, asegúrese de que su registro WHOIS contenga indicaciones claras de que es utilizado para un relay de salida de Tor
 
 ==== Página de notificación del relay de salida ====
 
@@ -471,7 +471,7 @@ Aquí hay algunos consejos para ejecutar un relay de salida confiable: https://b
 
 ==== DNS en relays de salida ====
 
-A diferencia de otros tipos de relays, los relays de salida también realizan resolución de DNS para los clientes Tor. La resolución de DNS en los relays de salida es crucial para los clientes de Tor. Se recomienda utilizar un "resolver" de DNS recursivo de manera local (o sea, en el mismo servidor o en el mismo segmento de la red local (LAN)).
+A diferencia de otros tipos de relays, los relays de salida también realizan resolución de DNS para los clientes Tor. La resolución de DNS en los relays de salida es crucial para las clientes de Tor. Se recomienda utilizar un "resolver" de DNS recursivo de manera local (o sea, en el mismo servidor o en el mismo segmento de la red local (LAN)).
 
 Hay varias opciones para el software del servidor DNS. Unbound se ha convertido en un software bastante particular. En cada caso el software debe poder instalarse utilizando el gestor de paquetes del sistema operativo para asegurarse que puede ser actualizado junto al resto del sistema.
 
@@ -482,7 +482,7 @@ Es una mala práctica utilizar resoluciones de DNS de grandes corporaciones como
 
 Defina su [https://www.torproject.org/docs/tor-manual.html.en#ExitPolicy política de salida]. La política de salida define qué puertos de destino desea reenviar. Esto tiene un impacto en la cantidad de correos electrónicos de abuso que recibirá (menos puertos significa menos correos electrónicos de abuso, pero un relay de salida que permite solo unos pocos puertos también es menos útil). Si desea ser un relay de salida útil, debe **permitir al menos los puertos de destino 80 y 443.**
 
-Como un nuevo relay de salida - especialmente si usted es nuevo en su proveedor de servicios de Internet, es bueno comenzar con una política de salida reducida (para reducir la cantidad de correos electrónicos de abuso) y abrirlo más a medida que tenga más experiencia. La política de salida reducida se puede encontrar en la siguiente página:
+Como un nuevo relay de salida - especialmente si usted es una nueva cliente en su proveedora de servicios de Internet, es bueno comenzar con una política de salida reducida (para reducir la cantidad de correos electrónicos de abuso) y abrirlo más a medida que tenga más experiencia. La política de salida reducida se puede encontrar en la siguiente página:
 https://trac.torproject.org/projects/tor/wiki/doc/ReducedExitPolicy
 
 ==== Último paso: Habilitar la salida en su configuración de torrc ====
@@ -532,10 +532,10 @@ Para garantizar que su relay es saludable y no sea desbordado tiene sentido cont
 
 Existen muchas herramientas para monitorear este tipo de datos. [http://munin-monitoring.org/ Munin] es una de ellas y es relativamente fácil de configurar.
 
-Nota: NO haga público su gráfico de munin (o cualquier otro detalle menor monitoreado) esto podría ayudar a los atacantes a desanonizar a las usuarios y usuarios de Tor.
+Nota: NO haga público su gráfico de munin (o cualquier otro detalle menor monitoreado) esto podría ayudar a las atacantes a desanonizar a las personas usuarias de Tor.
 
 ==== Herramientas ====
-Esta sección lista algunas herramientas que podría necesitar tener a mano como un operador de relay de Tor.
+Esta sección lista algunas herramientas que podría necesitar tener a mano como una operadora de relay de Tor.
 
 '''Nyx:''' [https://nyx.torproject.org/ Nyx] es una herramienta de Tor Project (anteriormente '''arm''') esta le permite ver datos en tiempo real del relay.
 
@@ -547,22 +547,22 @@ Documentación de vnstat y salida del demo:
 
 
 == Parte tres: información legal, información social y más recursos ==
-=== Consideraciones legales (para operadores relay de salida) ===
+=== Consideraciones legales (para operadoras relay de salida) ===
 
-Los operadores de relays de salida deberían conocer los riesgos potenciales relacionados con la ejecución del relay. Para la mayoría de operadores en la mayoría de países, los relay de entrada (guardianes y medios) y puente (bridge) tienen muy bajos riesgos.  Los relays de salida son los que presentan algunas preocupaciones legales. Pero en la mayoría de las casos los operadores podrán manejar estos asuntos legales al tener una carta de respuesta al abuso, ejecutar el relay de salida desde un lugar que no sea su hogar y leer algunos de los recursos legales que los abogados de Tor han juntado.
+Las operadoras de relays de salida deberían conocer los riesgos potenciales relacionados con la ejecución del relay. Para la mayoría de operadoras en la mayoría de países, los relay de entrada (guardianes y medios) y puente (bridge) tienen muy bajos riesgos.  Los relays de salida son los que presentan algunas preocupaciones legales. Pero en la mayoría de las casos las operadoras podrán manejar estos asuntos legales al tener una carta de respuesta al abuso, ejecutar el relay de salida desde un lugar que no sea su hogar y leer algunos de los recursos legales que las personas abogadas de Tor han juntado.
 
 ==== Recursos legales ====
 
-Las preguntas frecuentes de la EFF Tor Legal (https://www.torproject.org/eff/tor-legal-faq.html.en) responden a muchas preguntas comunes sobre la operación de un relay y la ley. También nos gusta la wiki de Noisebridge para recursos legales adicionales: https://www.noisebridge.net/wiki/Noisebridge_Tor/FBI. En general es una buena idea consultar con un abogado antes de decidir operar un relay de salida, especialmente si vive en un lugar donde los operadores de relays de salida han sido hostigados, o si es el único operador de relay de salida en su región. Póngase en contacto con una organización local de derechos digitales para ver si tienen recomendaciones sobre asistencia legal, y si no está seguro de qué organizaciones están trabajando en su región, escriba a la EFF y vea si pueden ayudarle a conectarse: https://www.eff.org/about/contact.
+Las preguntas frecuentes de la EFF Tor Legal (https://www.torproject.org/eff/tor-legal-faq.html.en) responden a muchas preguntas comunes sobre la operación de un relay y la ley. También nos gusta la wiki de Noisebridge para recursos legales adicionales: https://www.noisebridge.net/wiki/Noisebridge_Tor/FBI. En general es una buena idea consultar con una abogada antes de decidir operar un relay de salida, especialmente si vive en un lugar donde las operadoras de relays de salida han sido hostigadas, o si es la único operadora de relay de salida en su región. Póngase en contacto con una organización local de derechos digitales para ver si tienen recomendaciones sobre asistencia legal, y si no está segura de qué organizaciones están trabajando en su región, escriba a la EFF y vea si pueden ayudarle a conectarse: https://www.eff.org/about/contact.
 
 Ver también las pautas de salida de Tor:
 https://trac.torproject.org/projects/tor/wiki/doc/TorExitGuidelines
 
 ==== Respondiendo quejas de abuso ====
 
-Los operadores pueden armar sus propias plantillas de respuestas a las quejas de abuso, una de las muchas plantillas que Tor ha creado es https://trac.torproject.org/projects/tor/wiki/doc/TorAbuseTemplates.
+Las operadoras pueden armar sus propias plantillas de respuestas a las quejas de abuso, una de las muchas plantillas que Tor ha creado es https://trac.torproject.org/projects/tor/wiki/doc/TorAbuseTemplates.
 
-Es importante responder a las quejas por abuso de manera oportuna (en las próximas 24 horas). Si el provedor (ISP) se molesta por la cantidad de abuso, puede reducir la cantidad de puertos en la política de salida. Por favor documente la experiencia con nuevos provedores en la siguiente wiki:
+Es importante responder a las quejas por abuso de manera oportuna (en las próximas 24 horas). Si la provedora (ISP) se molesta por la cantidad de abuso, puede reducir la cantidad de puertos en la política de salida. Por favor documente la experiencia con nuevas provedoras en la siguiente wiki:
 https://trac.torproject.org/projects/tor/wiki/doc/GoodBadISPs
 
 Otros documentos que nos gustan:
@@ -572,15 +572,15 @@ Otros documentos que nos gustan:
 
 === Ejecutar un relay con otras personas ===
 
-¡Ejecutar relays con otras personas es más divertido! Puede trabajar con su departamento de la universidad, su empleador, una institución, o una organización como Torservers.net para ejecutar un relay.
+¡Ejecutar relays con otras personas es más divertido! Puede trabajar con su departamento de la universidad, su empleadora, una institución, o una organización como Torservers.net para ejecutar un relay.
 
 ==== Torservers.net ====
 
-Torservers es una red global e independiente de organizaciones que ayudan a la red Tor ejecutando relays Tor con gran ancho de banda. Convertirse en un socio de Torservers es una buena forma de involucrarse más con la comunidad de relays de Tor, y pueden ayudarle a conectarse con operadores de relays dedicados de todo el mundo en solidaridad y apoyo. Para iniciar como socio de Torservers, lo más importante es tener un grupo de personas (como sugerencia de 3 a 5 para comenzar) interesadas en ayudar con las diversas actividades requeridas para ejecutar los relays. Debería existir una confianza entre las personas del grupo, y deberían comprometerse a ejecutar relays a largo plazo. Si no conocen a alguna persona interesada en ejecutar relays, un lugar para conocer gente es su jaquerespeis local: https://wiki.hackerspaces.org/Hackerspaces.
+Torservers es una red global e independiente de organizaciones que ayudan a la red Tor ejecutando relays Tor con gran ancho de banda. Convertirse en una socia de Torservers es una buena forma de involucrarse más con la comunidad de relays de Tor, y pueden ayudarle a conectarse con operadoras de relays dedicadas de todo el mundo en solidaridad y apoyo. Para iniciar como socia de Torservers, lo más importante es tener un grupo de personas (como sugerencia de 3 a 5 para comenzar) interesadas en ayudar con las diversas actividades requeridas para ejecutar los relays. Debería existir una confianza entre las personas del grupo, y deberían comprometerse a ejecutar relays a largo plazo. Si no conocen a alguna persona interesada en ejecutar relays, un lugar para conocer gente es su jaquerespeis local: https://wiki.hackerspaces.org/Hackerspaces.
 
 Una vez que esté en un grupo de personas de confianza, dependiendo de su región, a menudo se aconseja crear algún tipo de corporación sin fines de lucro. Esto es útil para tener una cuenta bancaria, propiedades compartidas, solicitudes de subvención, etc. En muchos países el operar como corporación en lugar de individuos también pueden obtener ciertas protecciones legales.
 
-Los próximos pasos son descubrir el hardware, tránsito y el alojamiento del servidor. Dependiendo de su ubicación y conexiones dentro de la comunidad técnica del área, el último paso puede ser el mas difícil. Los pequeños ISPs (provedores de Internet) locales muchas veces tienen ancho de banda adicional, y pueden estar interesados en apoyar a su grupo con algo de ancho de banda o espacio en un rack. Es extremadamente importante mantener buenas relaciones con estos ISPs.
+Los próximos pasos son descubrir el hardware, tránsito y el alojamiento del servidor. Dependiendo de su ubicación y conexiones dentro de la comunidad técnica del área, el último paso puede ser el mas difícil. Las pequeñas ISPs (provedoras de Internet) locales muchas veces tienen ancho de banda adicional, y pueden estar interesadas en apoyar a su grupo con algo de ancho de banda o espacio en un rack. Es extremadamente importante mantener buenas relaciones con estas ISPs.
 
 ==== En su universidad ====
 
@@ -590,7 +590,7 @@ Muchos departamentos de ciencias de la computación, bibliotecas universitarias,
 Si usted trabaja en una empresa u organización que es amigable con Tor, ese es otro lugar ideal para implementar un relay. Algunas de las compañías que corren relays son: Brass Horn Communications, Quintex Alliance Consulting, y OmuraVPN. Algunas de las organizaciones que corren relays de Tor son: Digital Courage, Access Now, Derechos Digitales, y Lebanon Libraries en New Hampshire.
 
 === Más recursos ===
-¡Felicidades, usted es oficialmente un operador de relay de Tor!. ¿Y ahora qué?
+¡Felicidades, usted es oficialmente una operadora de relay de Tor!. ¿Y ahora qué?
 
 Puede revisar el tráfico y otras estadísticas para su relay en el buscador de Relays: https://metrics.torproject.org/rs.html (su relay va a aparecer en el buscar de Relays aproximadamente 3 horas después de haber sido iniciado).
 
