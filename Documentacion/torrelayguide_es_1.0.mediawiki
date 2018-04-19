@@ -434,7 +434,7 @@ Puede encontrar información adicional relacionada con IPv6 en [https://trac.tor
 
 === Importante si usted ejecuta más de una instancia Tor ===
 
-Para evitar poner en riesgo a los clientes de Tor al operar múltiples relays **debe** establecer un valor apropiado [https://www.torproject.org/docs/tor-manual.html.en#MyFamily MiFamilia] y tener una **[https://www.torproject.org/docs/tor-manual.html.en#ContactInfo InformaciónDeContacto]**  en su archivo de configuración torrc.  La configuración `MiFamilia` es simplemente decirle a las y los clientes de Tor qué relays Tor están controlados por una sola entidad/operador/organización, por lo tanto estos no los usan en múltiples posiciones en un solo circuito.
+Para evitar poner en riesgo a los clientes de Tor al operar múltiples relays **debe** establecer un valor apropiado [https://www.torproject.org/docs/tor-manual.html.en#MyFamily MyFamily] y tener una **[https://www.torproject.org/docs/tor-manual.html.en#ContactInfo InformaciónDeContacto]**  en su archivo de configuración torrc.  La configuración `MyFamily` es simplemente decirle a las y los clientes de Tor qué relays Tor están controlados por una sola entidad/operador/organización, por lo tanto estos no los usan en múltiples posiciones en un solo circuito.
 
 Si ejecuta dos relays y tienen los fingerprints AAAAAAAAAA y BBBBBBBB, debe agregar la siguiente configuración para establecer MyFamily:
 {{{
@@ -456,7 +456,7 @@ Algo como "tor-salida" en su nombre es un buen comienzo.
 
 Si su proveedor lo ofrece, asegúrese de que su registro WHOIS contenga indicaciones claras de que es utilizado para un relay de salida de Tor
 
-==== Salir de la página de notificación HTML ====
+==== Página de notificación del relay de salida ====
 
 Para hacer aún más obvio que se está lidiando ahora con un relay de salida de Tor, usted debe proveer una notificación de relay de salida de Tor en un página HTML. Tor puede hacer eso por usted si el DirPort está configurado sobre el puerto TCP/80, puede hacer uso de la característica de tor llamada [https://www.torproject.org/docs/tor-manual.html.en#DirPortFrontPage DirPortFrontPage]  para desplegar un archivo HTML sobre ese puerto. Este archivo va a ser mostrado de manera directa en su navegador cuando se utiliza la dirección IP del relay de salida de Tor.
 
