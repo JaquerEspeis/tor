@@ -13,7 +13,7 @@ Esta guía incluye las mejores prácticas que son esenciales para el correcto fu
 
 Si desea ir directamente a la configuración de un relay, lea la parte dos solamente.
 
-==== Uso de "Tor" y "tor" en esta guía
+==== Uso de "Tor" y "tor" en esta guía ====
 
 Utilizamos "tor" (en minúscula) cuando hablamos específicamente sobre el programa tor (el demonio), en todos los demás casos utilizamos "Tor"
 
@@ -30,7 +30,7 @@ Al ejecutar un Tor relay puedes ayudar a crear la red Tor:
 
 Todos los nodos son importantes, pero tienen diferentes requerimientos técnicos e implicaciones legales. Entender los diferentes tipos de nodos es el primer paso para aprender cuál es el adecuado para usted.
 
-=== Relay guardián/medio (ie, sin salida) 
+=== Relay guardián/medio (ie, sin salida) ===
 
 Un guardián es el primer relay en la cadena de 3 relays construyendo un circuito Tor. Un relay medio no es un guardián ni una salida, pero actúan como un segundo hop entre los dos. Para convertirse en un guardián, un relay tiene que ser estable y rápido (al menos 2MByte/s) de lo contrario va a permanecer como un relay medio.
 
@@ -67,7 +67,7 @@ Los requerimientos para los relays de Tor dependen del tipo de relay y el ancho 
 
 * Se recomienda que un relay de Tor pueda utilizar como mínimo 100 GBytes de tráfico de salida (y la misma cantidad de tráfico de entrada) por mes. Nota: Esto es solo apróximadamente 1 día de tráfico en una conexión de 10MBit/s (Mbps). Más (>2 TB/mes) es mejor y recomendado.
 
-==== Dirección IPv4 pública
+==== Dirección IPv4 pública ====
 Cada relay necesita una dirección IPv4 pública - ya sea directamente desde el host (preferido) o por medio de NAT y "port forwarding".
 
 No es requerido que la dirección IPv4 sea estática pero las direcciones estáticas son preferidas. Su dirección IPv4 debe permanecer sin ser cambiada durante al menos 3 horas (si cambia de manera regular, más frecuentemente que eso, entonces no tiene mucho sentido utilizarla para ejecutar un relay o un puente, ya que toma tiempo distribuir la nueva lista de direcciones de los relays a los clientes - lo que sucede solamente una vez cada hora).
@@ -78,34 +78,34 @@ No debe haber ningún problema al cumplir con estos requerimientos (todos los se
 Nota: Solo se pueden ejecutar dos relays de Tor por dirección IPv4 pública. Si usted quiere correr más de dos relays entonces va a necesitar más direcciones IPv4.
 
 
-==== Requerimientos de memoria
+==== Requerimientos de memoria ====
 
 * Un relay sin salida de <40MBit/s debe tener al menos 512 MB de RAM disponibles.
 * Un relay sin salida más rápido que 40MBit/s debe tener al menos 1 GB de RAM.
 * En un relay de salida recomendamos al menos 1.5 GB de RAM por cada instancia tor.
 
-==== Almacenamiento
+==== Almacenamiento ====
 
 Tor no necesita mucho espacio de almacenamiento. Un relay de Tor típico necesita menos de 200 MB para datos relacionados con Tor.
 
-==== CPU
+==== CPU ====
 
 * Cualquier CPU moderno debe estar bien.
 * Se recomienda utilizar CPUs con soporte AES-NI (esto mejorará el desempeño y va a permitir aproximadamente ~400-450 Mbps en cada dirección en una sola instancia de tor sobre CPUs modernos). Si el archivo `/proc/cpuinfo` contiene la palabra `aes` entonces su CPU tiene soporte para AES-NI.
 
-==== Tiempo de actividad (uptime)
+==== Tiempo de actividad (uptime) ====
 
 * Tor no tiene ningún requerimiento de tiempo de actividad determinado pero si su relay no está corriendo por al menos unas 2 horas al día, su utilidad será limitada. Idealmente el relay corre en un servidor que se ejecuta 24/7. Reinicios del sistema y del demonio de tor son aceptables.
 
-== Parte dos: Configuración técnica
+== Parte dos: Configuración técnica ==
 
-=== Consideraciones al elegir un proveedor de hosting
+=== Consideraciones al elegir un proveedor de hosting ===
 
 Si tiene acceso a Internet con una conexión de alta velocidad (>=100MBit/s en ambas direcciones) y una computadora física, esta es la mejor opción para ejecutar un relay. Tener total control sobre hardware y la conexión  brinda un entorno seguro y más controlable (si se hace de forma correcta). Puede alojar  su propio hardware físico en la casa (NO ejecute un relay Tor de salida en su casa) o en un centro de datos. Algunas veces esto se conoce como instalar un relay en "bare metal".
 
 Si usted no tiene su propio equipo físico, puede correr un relay en un servidor dedicado rentado o en un servidor virtual físico (VPS). Esto puede costarle un aproximado entre $3.00/mes y hasta varios miles de dólares al mes, dependiendo de su proveedor, la configuración del hardware y la utilización de ancho de banda. Debe seguir los términos de servicio de su proveedor VPS o se arriesgará a que le deshabiliten la cuenta. Para más información sobre proveedores de servicio hosting y sus políticas sobre permitir relays de Tor, por favor vea la lista mantenida por la comunidad Tor: https://trac.torproject.org/projects/tor/wiki/doc/GoodBadISPs
 
-=== Consideraciones a tomar en cuenta para escoger un proveedor de hosting
+=== Consideraciones a tomar en cuenta para escoger un proveedor de hosting ===
 * ¿ Cuánta cantidad de tráfico mensual se incluye? ( ¿se mide la cantidad de ancho de banda? )
 * ¿ Ofrece el proveedor de hosting conectividad IPv6? (esto es algo recomendado pero no es requerido)
 * ¿ Qué tipo de virtualización / hipervisor (si alguno) utiliza el proveedor?
@@ -113,13 +113,13 @@ Si usted no tiene su propio equipo físico, puede correr un relay en un servidor
 * ¿ Qué tan bien conectado se encuentra el sistema autónomo del proveedor de hosting? Para responder esta pregunta puede utilizar el "rank AS" de los sistemas autónomos, si quiere comparar: http://as-rank.caida.org/  (un valor menos es mejor)
 
 
-==== Si planea ejecutar relays de salida:
+==== Si planea ejecutar relays de salida: ====
 
 * ¿ Permite el proveedor de hosting la ejecución de relays de salida de Tor? (pregúnteles de manera directa antes de instalar un relay de salida allí)
 * ¿Permite el proveedor de hosting registros customizados de WHOIS para sus direcciones IP? Esto ayuda a reducir la cantidad de abusos enviados al proveedor de hosting en lugar de a usted?
 * ¿ El proveedor de hosting permite que usted configure entradas customizadas de DNS reverso? (registros DNS PTR). Esta es una de las cosas probables que necesitará pedir al proveedor de hosting en el tiquete de pre-venta.
 
-====  SA/diversidad de ubicación
+====  SA/diversidad de ubicación ====
 
 Cuando elija a su proveedor de hosting, considere la diversidad de la red a nivel de sistemas autónomos (SA) y de país. Una red más diversa es más resistente a ataques y a fallos. Algunas veces no tenemos claro cuál SA estamos comprando en caso de los revendedores de servicio. Para asegurarse es mejor preguntar el proveedor de hosting sobre el número de SA antes de ordenar un servidor.
 
@@ -137,22 +137,22 @@ Para averiguar cuál proveedor de hosting y cuáles países ya están siendo uti
 * Descripción general a nivel de país
  * https://metrics.torproject.org/rs.html#aggregate/cc
 
-==== Escogiendo un Sistema Operativo
+==== Escogiendo un Sistema Operativo ====
 
 **Recomendamos que cada persona utilice el sistema operativo con el que está más familiarizada.** Tenga en consideración que ya que la mayoría de los relays corren sobre Debian y queremos evitar una monocultura,  sistemas basados en *BSD son muy necesarios.
 
 La siguiente tabla muestra la distribución actual de sistemas operativos utilizados en la red de Tor, para darle una idea sobre la gran cantidad de relays no basados en Linux que deberíamos tener:
 * https://nusenu.github.io/OrNetStats/#os-distribution-relays
 
-=== Configuración a nivel del sistema operativo
+=== Configuración a nivel del sistema operativo ===
 
 La configuración del sistema operativo está fuera del alcance de esta guía, pero los siguientes puntos son cruciales para un relay de Tor, no obstante queremos mencionarlos aquí.
 
-==== Sincronización del tiempo (NTP)
+==== Sincronización del tiempo (NTP) ====
 
 Los ajustes de hora y su configuración son esenciales para los relays de Tor. Es recomendado utilizar el protocolo de tiempo de red (network time protocol/NTP) para sincronizar la hora y asegurarse que la zona horaria esta correctamente configurada. 
 
-==== Actualizaciones automáticas del software
+==== Actualizaciones automáticas del software ====
 
 Una de las cosas más importantes para mantener su relay seguro, es instalar las actualizaciones de seguridad de manera oportuna e idealmente de manera automática para que no olvide aplicarlas.
 Esta es la colección de pasos para habilitar la actualización de software automática para diferentes sistemas operativos:
@@ -181,11 +181,11 @@ Preguntas que usted debe aclarar antes de la configuración de Tor:
 
 Los comandos de instalación se muestran en bloques de código y deben ejecutarse con los privilegios de ** root **.
 
-=== Asegúrese de que los puertos de relay puedan ser contactados
+=== Asegúrese de que los puertos de relay puedan ser contactados ===
 
 Si está utilizando un corta fuegos (firewall), abra un agujero en su corta fuegos para que las conexiones entrantes puedan acceder a los puertos que usted va a utilizar para su relay (ORPort, más el DirPort si se encuentra habilitado). También, asegúrese que va a habilitar todas las conexiones salientes para que su relay pueda acceder a los otros relays de Tor, clientes y destinos. Puede encontrar el número de puerto TCP específico para ORPort en los ejemplos de archivos de configuración que se encuentran a continuación (en las secciones específicas del Sistema Operativo).
 
-=== Administración de la Configuración
+=== Administración de la Configuración ===
 
 Tor no escala bien en máquinas multi-core. Si corre un relay de Tor en un servidor con una enlace saliente (uplink) de internet rápido (>200 MBit/s) podría considerar ejecutar múltiples instancias de Tor en un mismo servidor con múltiples cores. Nota: Solo puede ejecutar dos instancias de tor por dirección IPv4 pública.
 
@@ -260,7 +260,7 @@ ContactInfo operador-tor@su-direcciondecorreo-dominio
 systemctl restart tor@default
 }}}
 
-==== Fedora
+==== Fedora ====
 
 1. Instale el paquete `tor`:
 {{{
@@ -346,7 +346,7 @@ sysrc tor_enable=YES
 service tor start
 }}}
 
-==== openSUSE
+==== openSUSE ====
 
 1. Instale el paquete `tor`:
 {{{
@@ -370,20 +370,20 @@ systemctl enable tor
 systemctl start tor
 }}}
 
-=== Verifique que su relay funciona
+=== Verifique que su relay funciona ===
 Si su archivo log (syslog) contiene la siguiente entrada después de iniciar el demonio de tor, entonces su relay debe estar arriba y ejecutándose de manera esperada:
 {{{
 La prueba "Self-testing" indica que su puerto ORPort se encuentra disponible desde afuera. Excelente. Ahora se estará publicando el descriptor del servidor.
 }}}
 Aproximadamente 3 horas después de iniciar su relay, debe aparecer en el buscador de Relays (https://metrics.torproject.org/rs.html). Usted puede buscar su relay utilizando el alias o  ladirección IP.
 
-=== Obtener ayuda
+=== Obtener ayuda ===
 
 Si usted tiene problemas durante la instalación/configuración de su relay, puede hacer preguntas en las listas de correo públicas de tor-relays:
 * https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-relays
 Este es un gran recurso para preguntar (y responder) preguntas y generalmente conocer a otros operadores de relays. ¡Asegúrese de revisar los archivos históricos de las listas!.
 
-=== Limitar el uso de ancho de banda (y el tráfico)
+=== Limitar el uso de ancho de banda (y el tráfico) ===
 Tor no limita el uso de ancho de banda de manera predeterminada, pero soporta varias maneras de restringir el uso de ancho de banda.
 y la cantidad de tráfico. Esto puede ser útil si se quiere asegurar de que el relay Tor no exceda cierto ancho de banda o tráfico total por día/ semana/mes. Las siguientes opciones de configuración torrc pueden usarse para restringir el ancho de banda y el tráfico:
 
@@ -399,7 +399,7 @@ Tener un relay rápido por algún tiempo durante el mes es mejor que tener un re
 También vea la entrada de ancho de banda en el FAQ:
 https://www.torproject.org/docs/faq.html.en#BandwidthShaping
 
-=== IPv6
+=== IPv6 ===
 
 Nosotros incentivamos a todas las personas a habilitar IPv6 en sus relays. Esto es especialmente valioso en los relays guardián y de salida.
 
@@ -432,7 +432,7 @@ Nota: Tor requiere conectividad IPv4, no puede ejecutar un relay de Tor solo sob
 
 Puede encontrar información adicional relacionada con IPv6 en [https://trac.torproject.org/projects/tor/wiki/doc/IPv6RelayHowto IPv6RelayHowto].
 
-=== Importante si usted ejecuta más de una instancia Tor
+=== Importante si usted ejecuta más de una instancia Tor ===
 
 Para evitar poner en riesgo a los clientes de Tor al operar múltiples relays **debe** establecer un valor apropiado [https://www.torproject.org/docs/tor-manual.html.en#MyFamily MiFamilia] y tener una **[https://www.torproject.org/docs/tor-manual.html.en#ContactInfo InformaciónDeContacto]**  en su archivo de configuración torrc.  La configuración `MiFamilia` es simplemente decirle a las y los clientes de Tor qué relays Tor están controlados por una sola entidad/operador/organización, por lo tanto estos no los usan en múltiples posiciones en un solo circuito.
 
@@ -445,18 +445,18 @@ a ambos relays. Para encontrar la huella (fingerprint) de sus relays, puede busc
 En lugar de hacerlo manual, para operaciones grandes recomendamos automatizar la configuración de MyFamily por medio de
 [[TorRelayGuide#ConfigurationManagement|la solución de gestor de configuración]].  El manejo manual de MyFamily para grandes grupos de relays tiende a errores y puede poner el cliente Tor en riesgo.
 
-=== Configuración del relay de salida
+=== Configuración del relay de salida ===
 
 Se recomienda que instale el relay de salida en servidores dedicados a ese propósito. No se recomienda instalar relays de salida de Tor en servidores que son utilizados para otros servicios. No mezcle su tráfico con el tráfico del relay de salida.
 
-=== Registro WHOIS y de DNS reverso
+=== Registro WHOIS y de DNS reverso ===
 
 Antes de modificar su relay para que se convierta en un relay de salida, asegúrese de configurar un registro de DNS reverso (PTR) para que todo mundo sepa que su relay es ahora un relay de salida de tor.
 Algo como "tor-salida" en su nombre es un buen comienzo.
 
 Si su proveedor lo ofrece, asegúrese de que su registro WHOIS contenga indicaciones claras de que es utilizado para un relay de salida de Tor
 
-==== Salir de la página de notificación HTML
+==== Salir de la página de notificación HTML ====
 
 Para hacer aún más obvio que se está lidiando ahora con un relay de salida de Tor, usted debe proveer una notificación de relay de salida de Tor en un página HTML. Tor puede hacer eso por usted si el DirPort está configurado sobre el puerto TCP/80, puede hacer uso de la característica de tor llamada [https://www.torproject.org/docs/tor-manual.html.en#DirPortFrontPage DirPortFrontPage]  para desplegar un archivo HTML sobre ese puerto. Este archivo va a ser mostrado de manera directa en su navegador cuando se utiliza la dirección IP del relay de salida de Tor.
 
@@ -470,7 +470,7 @@ https://gitweb.torproject.org/tor.git/plain/contrib/operator-tools/tor-exit-noti
 
 Aquí hay algunos consejos para ejecutar un relay de salida confiable: https://blog.torproject.org/tips-running-exit-node
 
-==== DNS en relays de salida
+==== DNS en relays de salida ====
 
 A diferencia de otros tipos de relays, los relays de salida también realizan resolución de DNS para los clientes Tor. La resolución de DNS en los relays de salida es crucial para los clientes de Tor. Se recomienda utilizar un "resolver" de DNS recursivo de manera local (o sea, en el mismo servidor o en el mismo segmento de la red local (LAN)).
 
@@ -479,14 +479,14 @@ Hay varias opciones para el software del servidor DNS. Unbound se ha convertido 
 La resolución de DNS puede tener un impacto significativo en el rendimiento que proporciona su realy de salida. Un rendimiento de  deficiente de DNS resultará en menos tráfico en su relay de salida.
 Es una mala práctica utilizar resoluciones de DNS de grandes corporaciones como Google ya que reciben muchas solicitudes DNS de salidas o a organizaciones que realizan un filtrado de solicitudes de DNS.
 
-==== Política de salida
+==== Política de salida ====
 
 Defina su [https://www.torproject.org/docs/tor-manual.html.en#ExitPolicy política de salida]. La política de salida define qué puertos de destino desea reenviar. Esto tiene un impacto en la cantidad de correos electrónicos de abuso que recibirá (menos puertos significa menos correos electrónicos de abuso, pero un relay de salida que permite solo unos pocos puertos también es menos útil). Si desea ser un relay de salida útil, debe **permitir al menos los puertos de destino 80 y 443.**
 
 Como un nuevo relay de salida - especialmente si usted es nuevo en su proveedor de servicios de Internet, es bueno comenzar con una política de salida reducida (para reducir la cantidad de correos electrónicos de abuso) y abrirlo más a medida que tenga más experiencia. La política de salida reducida se puede encontrar en la siguiente página:
 https://trac.torproject.org/projects/tor/wiki/doc/ReducedExitPolicy
 
-==== Último paso: Habilitar la salida en su configuración de torrc
+==== Último paso: Habilitar la salida en su configuración de torrc ====
 
 Para convertirse en un relay de salida, cambie `ExitRelay` de 0 a 1 en su archivo de configuración torrc y reinicie el demonio tor.
 {{{
@@ -498,7 +498,7 @@ ExitRelay 1
 
 Lleva cierto tiempo para que el tráfico del relay aumente, esto es especialmente cierto para los relays guard, pero en menor medida también para los relays de salida. Para conocer este proceso, lea sobre el ciclo de vida de un nuevo relay: https://blog.torproject.org/lifecycle-new-relay.
 
-=== Manteniendo un relay
+=== Manteniendo un relay ===
 
 === Respaldar las llaves de identidad de Tor
 Después de la instalación inicial y el inicio del demonio tor, es buena idea hacer una copia de las claves de identidad a largo plazo ( long-term key) de su relay. Se encuentran en la subcarpeta "keys" de DataDirectory (simplemente haga una copia de la carpeta completa y guárdela en una ubicación segura).
@@ -509,11 +509,11 @@ Ubicaciones predeterminadas para el directorio de llaves/claves:
 * FreeBSD/HardenedBSD: /var/db/tor/keys
 
 
-==== Suscribirse a la lista de correo tor-announce
+==== Suscribirse a la lista de correo tor-announce ====
 Esta es una de lista correo de muy bajo tráfico y usted podrá obtener información sobre nuevas versiones de tor e información importante sobre actualizaciones de seguridad.
 * https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-announce
 
-==== Configurar notificaciones de fallos del sistema
+==== Configurar notificaciones de fallos del sistema ====
 
 Una vez que configure su realy probablemente este se ejecutará sin mucho trabajo desde su lado. Si algo sale mal, es bueno obtener una notificación automáticamente. Recomendamos que utilice uno de los servicios gratuitos que le permiten verificar los ORPorts de su relay para alcanzarlos y enviarle un correo electrónico en caso de que no se puedan acceder por cualquier razón.
 
@@ -522,7 +522,7 @@ UptimeRobot es uno de estos servicios con que puede monitorear puertos aribitrar
 
 Una buena manera de monitorear un relay para chequear el  estado del sistema es mirar sus gráficos de ancho de banda.
 
-==== Monitoreo de estado del sistema
+==== Monitoreo de estado del sistema ====
 Para garantizar que su relay es saludable y no sea desbordado tiene sentido contar con un sistema  básico de monitoreo en para vigilar las siguientes métricas:
 
 * Ancho de banda
@@ -535,7 +535,7 @@ Existen muchas herramientas para monitorear este tipo de datos. [http://munin-mo
 
 Nota: NO haga público su gráfico de munin (o cualquier otro detalle menor monitoreado) esto podría ayudar a los atacantes a desanonizar a las usuarios y usarios de Tor.
 
-==== Herramientas
+==== Herramientas ====
 Esta sección lista algunas herramientas que podría necesitar tener a mano como un operador de relay de Tor.
 
 '''Nyx:''' [https://nyx.torproject.org/ Nyx] es una herramienta de Tor Project (anteriormente '''arm''') esta le permite ver datos en tiempo real del relay.
@@ -547,12 +547,12 @@ Documentación de vnstat y salida del demo:
 * http://humdi.net/vnstat/cgidemo/
 
 
-== Parte tres: información legal, información social y más recursos
-=== Consideraciones legales (para operadores relay de salida)
+== Parte tres: información legal, información social y más recursos ==
+=== Consideraciones legales (para operadores relay de salida) ===
 
 Los operadores de relays de salida debería conocer los riesgos potenciales relacionados con la ejecución del relay. Para la mayoría de operadores en la mayoría de países, los relay de entrada (gaurd)  y puente (bridge) tiene muy bajos riesgos.  Los relays de salida son los que presentan algunas preocupaciones legales. Pero en la mayoría de las casos los operadores podrán manejar estos asuntos legales al tener una carta de respuesta al abuso, ejecutar el relay de salida desde un lugar que no sea su hogar y leer algunos de los recursos legales que los abogados de Tor han juntado.
 
-==== Recursos legales
+==== Recursos legales ====
 
 Las preguntas frecuentes de EFF Tor Legal (https://www.torproject.org/eff/tor-legal-faq.html.en) responden a muchas preguntas comunes sobre la operación de un relay y la ley. También nos gusta la wiki de Noisebridge para recursos legales adicionales: https://www.noisebridge.net/wiki/Noisebridge_Tor/FBI. En general es una buena idea consultar con un abogado antes de decidir operar un relay de salida, especialmente si vive en un lugar donde los operadores de relays de salida han sido hostigados, o si es el único operador de relay de salida en su región. Póngase en contacto con una organización local de derechos digitales para ver si tienen recomendaciones sobre asistencia legal, y si no está seguro de qué organizaciones están trabajando en su región, escriba a EFF y vea si pueden ayudarle a conectarse: https://www.eff.org/about/contact.
 
@@ -599,7 +599,7 @@ Puede revisar el tráfico y otras estadísticas para su relay en el buscador de 
 
 * Y, lo más importante, asegúrese de enviar un correo electrónico a tshirt@torproject.org y reclame su botín: https://www.torproject.org/getinvolved/tshirt.html. Es nuestra forma de decir gracias por defender la privacidad y la libertad de expresión en línea.
 
-=== ¿Cómo crear un "bugreport" para esta guía?
+=== ¿Cómo crear un "bugreport" para esta guía? ===
 
 Por favor cree un [https://trac.torproject.org/projects/tor/newticket tiquete] "trac" y elija el componente: Comunidad/Relay
 Si usted prefiere no crear una cuenta, puede utilizar los siguientes credenciales para reportar un problema de manera anónima:
