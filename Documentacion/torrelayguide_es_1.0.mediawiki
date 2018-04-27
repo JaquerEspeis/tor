@@ -32,7 +32,7 @@ Todos los nodos son importantes, pero tienen diferentes requerimientos técnicos
 
 === Relay guardián/medio (ie, sin salida) ===
 
-Un guardián es el primer relay en la cadena de 3 relays construyendo un circuito Tor. Un relay medio no es un guardián ni una salida, pero actúan como un segundo hop entre los dos. Para convertirse en un guardián, un relay tiene que ser estable y rápido (al menos 2MByte/s) de lo contrario va a permanecer como un relay medio.
+Un guardián es el primer relay en la cadena de 3 relays construyendo un circuito Tor. Un relay medio no es un guardián ni una salida, pero actúan como un segundo salto entre los dos. Para convertirse en un guardián, un relay tiene que ser estable y rápido (al menos 2MByte/s) de lo contrario va a permanecer como un relay medio.
 
 Los relays guardianes y medios usualmente no reciben quejas o reportes de abuso. Todos los relays van a estar listados en las listas públicas de relays de Tor, por lo que pueden ser bloqueados por ciertos servicios que no entienden cómo funcionan las redes Tor o por quienes de manera deliberada quieren censurar a las personas usuarias de Tor. Si usted está ejecutando un relay desde su casa y tiene una IP estática, podría considerar ejecutar un puente para que el tráfico ajeno a Tor no sea bloqueado al ser detectado que viene de Tor. Si usted tiene una dirección IP dinámica o varias direcciones IP estáticas, entonces no tendrá mayores inconvenientes.
 
@@ -58,7 +58,7 @@ Los puentes son nodos Tor relativamente sencillos, de bajo riesgo y baja utiliza
 === Requerimientos para Relay ===
 Los requerimientos para los relays de Tor dependen del tipo de relay y el ancho de banda que proporcionen.
  
-==== Ancho de banca y conexiones ====
+==== Ancho de banda y conexiones ====
 * Un relay sin salida debe poder manejar al menos 7000 conexiones concurrentes. Esto puede ser demasiado para enrutadores de nivel de consumidor (caseros).  No habrán problemas si usted ejecuta un relay de Tor desde un servidor (virtual o dedicado) en un centro de datos. Si corre un relay detrás de un enrutador de nivel de usuario desde su casa va a tener que intentar y verificar si su enrutador casero puede manejar esa carga o si va a fallar. Los relays de salida rápidos (>=100 MBit/s) usualmente necesitan manejar mucha mayor cantidad de conexiones concurrentes (>100k).
 
 * Se recomienda que un relay tenga al menos 16 MBit/s (Mbps) de ancho de banda de subida y 16 MBit/s (Mbps) de ancho de banda de bajada disponible para Tor. Entre más ancho de banda, mejor.  Los requerimientos mínimos para un relay son 10 MBit/s (Mbps). Si usted tene menos de 10 MBit/s (Mbps) pero tiene al menos 1 MBit/s le recomendamos que ejecute un [https://trac.torproject.org/projects/tor/wiki/doc/PluggableTransports/obfs4proxy puente con soporte obfs4]. Si usted no conoce su ancho de banda puede utilizar http://beta.speedtest.net para medirlo.
@@ -103,34 +103,34 @@ Tor no necesita mucho espacio de almacenamiento. Un relay de Tor típico necesit
 
 Si tiene acceso a Internet con una conexión de alta velocidad (>=100MBit/s en ambas direcciones) y una computadora física, esta es la mejor opción para ejecutar un relay. Tener total control sobre el hardware y la conexión  brinda un entorno seguro y más controlable (si se hace de forma correcta). Puede alojar su propio hardware físico en la casa (NO ejecute un relay Tor de salida en su casa) o en un centro de datos. Algunas veces esto se conoce como instalar un relay en "bare metal".
 
-Si no tiene su propio equipo físico, puede correr un relay en un servidor dedicado rentado o en un servidor virtual físico (VPS). Esto puede costarle un aproximado de entre $3.00/mes y hasta varios miles de dólares al mes, dependiendo de su proveedor, la configuración del hardware y la utilización de ancho de banda. Debe seguir los términos de servicio de su proveedor VPS o se arriesgará a que le deshabiliten la cuenta. Para más información sobre proveedores de servicio hosting y sus políticas sobre permitir relays de Tor, por favor vea la lista mantenida por la comunidad Tor: https://trac.torproject.org/projects/tor/wiki/doc/GoodBadISPs
+Si no tiene su propio equipo físico, puede correr un relay en un servidor dedicado rentado o en un servidor virtual físico (VPS). Esto puede costarle un aproximado de entre $3.00/mes y hasta varios miles de dólares al mes, dependiendo de su proveedor, la configuración del hardware y la utilización de ancho de banda. Debe seguir los términos de servicio de su proveedor VPS o se arriesgará a que le deshabiliten la cuenta. Para más información sobre proveedores de servicio de hospedaje y sus políticas sobre permitir relays de Tor, por favor vea la lista mantenida por la comunidad Tor: https://trac.torproject.org/projects/tor/wiki/doc/GoodBadISPs
 
-=== Consideraciones a tomar en cuenta para escoger una proveedora de hosting ===
+=== Consideraciones a tomar en cuenta para escoger una empresa proveedora de hospedaje ===
 * ¿Cuánta cantidad de tráfico mensual se incluye? ( ¿se mide la cantidad de ancho de banda? )
-* ¿Ofrece la proveedora de hosting conectividad IPv6? (esto es algo recomendado pero no es requerido)
+* ¿Ofrece la proveedora de hospedaje conectividad IPv6? (esto es algo recomendado pero no es requerido)
 * ¿Qué tipo de virtualización / hipervisor (si alguno) utiliza la proveedora?
-* ¿La proveedora de hosting empieza a acelerar el ancho de banda después de cierta cantidad de tráfico?
-* ¿Qué tan bien conectado se encuentra el sistema autónomo de la proveedora de hosting? Para responder esta pregunta puede utilizar el "rank AS" de los sistemas autónomos, si quiere comparar: http://as-rank.caida.org/  (un valor menor es mejor)
+* ¿La proveedora de hospedaje empieza a acelerar el ancho de banda después de cierta cantidad de tráfico?
+* ¿Qué tan bien conectado se encuentra el sistema autónomo de la proveedora de hospedaje? Para responder esta pregunta puede utilizar el "rank AS" de los sistemas autónomos, si quiere comparar: http://as-rank.caida.org/  (un valor menor es mejor)
 
 
 ==== Si planea ejecutar relays de salida: ====
 
-* ¿Permite la proveedora de hosting la ejecución de relays de salida de Tor? (pregúnteles de manera directa antes de instalar un relay de salida allí)
-* ¿Permite la proveedora de hosting registros customizados de WHOIS para sus direcciones IP? Esto ayuda a reducir la cantidad de abusos enviados a la proveedora de hosting en lugar de a usted
-* ¿La proveedora de hosting permite que usted configure entradas customizadas de DNS reverso? (registros DNS PTR). Esta es una de las cosas probables que necesitará pedir a la proveedora de hosting en el tiquete de pre-venta.
+* ¿Permite la proveedora de hospedaje la ejecución de relays de salida de Tor? (pregúnteles de manera directa antes de instalar un relay de salida allí)
+* ¿Permite la proveedora de hospedaje registros personalizados de WHOIS para sus direcciones IP? Esto ayuda a reducir la cantidad de abusos enviados a la proveedora de hospedaje en lugar de a usted.
+* ¿La proveedora de hospedaje permite que usted configure entradas personalizadas de DNS inverso? (registros DNS PTR). Esta es una de las cosas que probablemente necesitará pedir a la proveedora de hospedaje en la solicitud de pre-venta.
 
 ====  SA/diversidad de ubicación ====
 
-Cuando elija a su proveedora de hosting, considere la diversidad de la red a nivel de sistemas autónomos (SA) y de país. Una red más diversa es más resistente a ataques y a fallos. Algunas veces no tenemos claro cuál SA estamos comprando en caso de las revendedoras de servicio. Para asegurarse, es mejor preguntar a la proveedora de hosting sobre el número de SA antes de ordenar un servidor.
+Cuando elija a su proveedora de hospedaje, considere la diversidad de la red a nivel de sistemas autónomos (SA) y de país. Una red más diversa es más resistente a ataques y a fallos. Algunas veces no tenemos claro cuál SA estamos comprando en caso de las revendedoras de servicio. Para asegurarse, es mejor preguntar a la proveedora de hospedaje sobre el número de SA antes de ordenar un servidor.
 
-Es mejor evitar proveedoras de hosting donde ya hayan muchos relays de Tor alojados, pero es mejor agregar uno más que no correr un relay del todo. Trate evitar los siguientes proveedoras de hosting:
+Es mejor evitar proveedoras de hospedaje donde ya hayan muchos relays de Tor alojados, pero es mejor agregar uno más que simplemente no correr un relay. Trate de evitar los siguientes empresas:
 
 * OVH SAS (AS16276) 
 * Online S.a.s. (AS12876)
 * Hetzner Online GmbH (AS24940)
 * DigitalOcean, LLC (AS14061)
 
-Para averiguar cuál proveedora de hosting y cuáles países ya están siendo utilizados por muchas operadoras (o sea, que deben ser evitadas) puede utilizar el sistema de búsqueda de relays:
+Para averiguar cuál proveedora de hospedaje y cuáles países ya están siendo utilizados por muchas operadoras (o sea, que deben ser evitadas) puede utilizar el sistema de búsqueda de relays:
 
 * Descripción general del nivel de sistemas autónomos (SA)
  * https://metrics.torproject.org/rs.html#aggregate/as
@@ -236,7 +236,7 @@ systemctl start tor
 
 1. Habilitar el repositorio del paquete de Torproject
 
-Esto puede considerarse opcional en Debian pero no es opcional en Ubuntu. No utilice los paquetes en el universo de Ubuntu. Obtenga las fuentes de los repositorios para agregarlos en su archivo /etc/apt/sources.list ejecutando el configurador [https://www.torproject.org/docs/debian.html.en#ubuntu que está por acá]. También asegúrese de importar las llaves GPG. Esto le ayudará a asegurarse que está ejecutando la última versión estable de tor.
+Esto puede considerarse opcional en Debian, aunque no en Ubuntu. No utilice los paquetes en el universo de Ubuntu. Obtenga las fuentes de los repositorios para agregarlos en su archivo /etc/apt/sources.list ejecutando el configurador [https://www.torproject.org/docs/debian.html.en#ubuntu que está por acá]. También asegúrese de importar las llaves GPG. Esto le ayudará a asegurarse que está ejecutando la última versión estable de tor.
 
 2. Instalar el paquete `tor`
 {{{
